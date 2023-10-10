@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.barkiko.HelloController">
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="378.0" prefWidth="508.0" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="com.example.barkiko.HelloController">
   <padding>
-    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
   </padding>
 
-  <Label fx:id="welcomeText"/>
-  <Button text="Hello!" onAction="#onHelloButtonClick"/>
+  <Label fx:id="welcomeText" />
+   <Label text="Bar Kiko">
+      <font>
+         <Font size="30.0" />
+      </font>
+   </Label>
+   <AnchorPane prefHeight="235.0" prefWidth="438.0">
+      <children>
+         <Button fx:id="buttonEmpleados" layoutX="154.0" layoutY="15.0" mnemonicParsing="false" onAction="#goEmpleados" prefHeight="96.0" prefWidth="160.0" text="Empleados" textAlignment="CENTER">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Button>
+         <Button fx:id="buttonProductos" layoutX="154.0" layoutY="125.0" mnemonicParsing="false" onAction="#goProductos" prefHeight="96.0" prefWidth="160.0" text="Productos" textAlignment="CENTER">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Button>
+      </children>
+   </AnchorPane>
 </VBox>
