@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="464.0" prefWidth="508.0" spacing="20.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.barkiko.AgregarEmpleadoController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <Label fx:id="welcomeText" />
+    <Label text="Agregar Empleado">
+        <font>
+            <Font size="24.0" />
+        </font>
+    </Label>
+    <AnchorPane prefHeight="339.0" prefWidth="438.0">
+      <children>
+         <TextField fx:id="txtNombre" layoutX="57.0" layoutY="65.0" prefHeight="34.0" prefWidth="158.0" promptText="nombre" />
+         <TextField fx:id="txtPrimerApellido" layoutX="234.0" layoutY="48.0" prefHeight="34.0" prefWidth="158.0" promptText="Primer apellido" />
+         <TextField fx:id="txtSegundoApellido" layoutX="234.0" layoutY="92.0" prefHeight="34.0" prefWidth="158.0" promptText="Segundo apellido" />
+         <TextField fx:id="txtSueldo" layoutX="159.0" layoutY="149.0" prefHeight="34.0" prefWidth="158.0" promptText="Sueldo" />
+         <ChoiceBox fx:id="cbPuesto" layoutX="163.0" layoutY="197.0" prefWidth="150.0" />
+         <Button fx:id="buttonAgregar" layoutX="247.0" layoutY="252.0" mnemonicParsing="false" onAction="#goAgregar" text="Agregar">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Button>
+         <Button fx:id="buttonCancelar" layoutX="130.0" layoutY="252.0" mnemonicParsing="false" onAction="#goCancelar" text="Cancelar">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Button>
+      </children>
+    </AnchorPane>
+</VBox>

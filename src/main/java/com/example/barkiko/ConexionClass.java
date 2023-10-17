@@ -1,5 +1,8 @@
 package com.example.barkiko;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,18 +14,36 @@ public class ConexionClass {
 
     private Connection conexion;
 
-    public void conectar() throws ClassNotFoundException, SQLException, IOException {
-        Properties configuration = new Properties();
-        configuration.load(R.getProperties("database.properties"));
-        String host = configuration.getProperty("host");
-        String port = configuration.getProperty("port");
-        String name = configuration.getProperty("name");
-        String username = configuration.getProperty("username");
-        String password = configuration.getProperty("password");
+    public Connection conectar() throws ClassNotFoundException, SQLException, IOException {
+        Properties properties = new Properties();
 
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        conexion = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + name + "?serverTimezone=UTC",
-                username, password);
+        String host = "127.0.0.1";
+        String port = "3306";
+        String name = "bar_kiko";
+        String username = "root";
+        String password = "toor";
+
+
+        try{
+            properties.load(new FileInputStream(new File("src/main/resources/configuration/database.properties")));
+
+            //System.out.println(properties.get("driver"));
+            host=String.valueOf(properties.get("host"));
+            port=String.valueOf(properties.get("port"));
+            name=String.valueOf(properties.get("name"));
+            username=String.valueOf(properties.get("username"));
+            password=String.valueOf(properties.get("password"));
+            return conexion = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + name + "?serverTimezone=UTC",
+                    username, password);
+
+
+        } catch(FileNotFoundException ex){
+            ex.printStackTrace();
+        } catch(IOException ex){
+            ex.printStackTrace();
+        }
+        return conexion;
+
     }
 
     public void desconectar() throws SQLException {
