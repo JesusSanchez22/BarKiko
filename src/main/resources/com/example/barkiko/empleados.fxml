@@ -47,6 +47,7 @@
                <Font size="18.0" />
             </font>
          </Button>
+         <Button fx:id="buttonAtras" layoutX="14.0" layoutY="313.0" mnemonicParsing="false" onAction="#goAtras" prefHeight="26.0" prefWidth="59.0" text="Atrás" />
         </children>
     </AnchorPane>
 </VBox>

@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -47,6 +48,9 @@ public class EmpleadosController implements Initializable{
     private Button buttonAgregar;
 
     @FXML
+    private Button buttonAtras;
+
+    @FXML
     private Button buttonEliminar;
 
     @FXML
@@ -80,14 +84,24 @@ public class EmpleadosController implements Initializable{
     }
 
     @FXML
+    void goAtras(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
+        Scene scene = new Scene(root);
+        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appStage.setScene(scene);
+        appStage.toFront();
+        appStage.show();
+    }
+
+    @FXML
     void goAgregar(ActionEvent event) throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("agregarEmpleado.fxml"));
-        Parent root = fxmlLoader.load();
+        Parent root = FXMLLoader.load(getClass().getResource("agregarEmpleado.fxml"));
         Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
+        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appStage.setScene(scene);
+        appStage.toFront();
+        appStage.show();
 
     }
 
@@ -129,9 +143,29 @@ public class EmpleadosController implements Initializable{
     }
 
     @FXML
-    void goModificar(ActionEvent event) {
+    void goModificar(ActionEvent event) throws IOException {
+
+        Empleado empleadoSeleccionado = tablaEmpleados.getSelectionModel().getSelectedItem();
+
+        if (empleadoSeleccionado != null) {
+            Parent root = FXMLLoader.load(getClass().getResource("ModificarEmpleado.fxml"));
+            Scene scene = new Scene(root);
+            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            appStage.setScene(scene);
+            appStage.toFront();
+            appStage.show();
+
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("No se ha seleccionado ningún empleado");
+
+            alert.showAndWait();
+        }
 
     }
+
 
     private ObservableList<Empleado> infoEmpleados;
 

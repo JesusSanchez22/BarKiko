@@ -3,6 +3,7 @@ package com.example.barkiko;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,12 +25,12 @@ public class HelloController {
 
     @FXML
     void goEmpleados(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("empleados.fxml"));
-        Parent root = fxmlLoader.load();
+        Parent root = FXMLLoader.load(getClass().getResource("empleados.fxml"));
         Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
+        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appStage.setScene(scene);
+        appStage.toFront();
+        appStage.show();
     }
 
     @FXML
