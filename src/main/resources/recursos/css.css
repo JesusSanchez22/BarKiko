@@ -1,0 +1,25 @@
+
+
+
+
+#fondo{
+
+    -fx-background-image: url("fondo2.jpg");
+    -fx-background-size: 255, 200;
+    -fx-border-color: #f3f3df;
+    -fx-border-width: 5px;
+
+}
+
+.button{
+    -fx-background-color: #ffffff;
+    -fx-border-color: #fffacd;
+    -fx-border-width: 2;
+    -fx-text-fill: #0a0a23;
+    -fx-font-family: "Arial";
+    -fx-font-style: Strong;
+    -fx-font-size: 28px;
+    -fx-background-radius: 10 10 10 10;
+    -fx-border-radius: 10 10 10 10;
+
+}
