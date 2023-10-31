@@ -21,25 +21,26 @@ import java.util.ResourceBundle;
 
 public class EmpleadosController implements Initializable{
 
+    Empleado empleadoSeleccionado;
+
+    @FXML
+    TableColumn<Empleado, String> NombreColumn;
+
+    @FXML
+    TableColumn<Empleado, String> Apellido1Column;
+
+    @FXML
+    TableColumn<Empleado, String> Apellido2Column;
+
+    @FXML
+    TableColumn<Empleado, Integer> CodigoColumn;
 
 
     @FXML
-    private TableColumn<Empleado, String> Apellido1Column;
+    TableColumn<Empleado, String> PuestoColumn;
 
     @FXML
-    private TableColumn<Empleado, String> Apellido2Column;
-
-    @FXML
-    private TableColumn<Empleado, Integer> CodigoColumn;
-
-    @FXML
-    private TableColumn<Empleado, String> NombreColumn;
-
-    @FXML
-    private TableColumn<Empleado, String> PuestoColumn;
-
-    @FXML
-    private TableColumn<Empleado, Double> SueldoColumn;
+    TableColumn<Empleado, Double> SueldoColumn;
 
     @FXML
     private TableView<Empleado> tablaEmpleados;
@@ -145,7 +146,7 @@ public class EmpleadosController implements Initializable{
     @FXML
     void goModificar(ActionEvent event) throws IOException {
 
-        Empleado empleadoSeleccionado = tablaEmpleados.getSelectionModel().getSelectedItem();
+        empleadoSeleccionado = tablaEmpleados.getSelectionModel().getSelectedItem();
 
         if (empleadoSeleccionado != null) {
             Parent root = FXMLLoader.load(getClass().getResource("ModificarEmpleado.fxml"));
@@ -174,10 +175,11 @@ public class EmpleadosController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
+        NombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         Apellido1Column.setCellValueFactory(new PropertyValueFactory<>("apellido1"));
         Apellido2Column.setCellValueFactory(new PropertyValueFactory<>("apellido2"));
         CodigoColumn.setCellValueFactory(new PropertyValueFactory<>("codigo"));
-        NombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         PuestoColumn.setCellValueFactory(new PropertyValueFactory<>("puesto"));
         SueldoColumn.setCellValueFactory(new PropertyValueFactory<>("sueldo"));
 

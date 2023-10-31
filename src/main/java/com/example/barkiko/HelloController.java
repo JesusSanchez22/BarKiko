@@ -34,8 +34,13 @@ public class HelloController {
     }
 
     @FXML
-    void goProductos(ActionEvent event) {
-
+    void goProductos(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("productos.fxml"));
+        Scene scene = new Scene(root);
+        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appStage.setScene(scene);
+        appStage.toFront();
+        appStage.show();
     }
 
 }

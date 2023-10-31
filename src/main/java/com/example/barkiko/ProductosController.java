@@ -2,44 +2,66 @@ package com.example.barkiko;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.io.IOException;
 
-public class ProductosController implements Initializable {
-
+public class ProductosController {
 
     @FXML
     private Button buttonAgregar;
 
     @FXML
+    private Button buttonAtras;
+
+    @FXML
     private Button buttonEliminar;
+
+    @FXML
+    private Button buttonGuardar;
 
     @FXML
     private Button buttonModificar;
 
+    @FXML
+    private ListView<?> lvCoches;
 
     @FXML
-    private Label welcomeText;
+    private TextField txtCodigo;
 
     @FXML
-    private TableColumn<String, String> CodigoColumn;
+    private TextField txtCompra;
 
     @FXML
-    private TableView<String> tablaProductos;
+    private TextField txtNombre;
+
+    @FXML
+    private TextField txtStock;
+
+    @FXML
+    private TextField txtVenta;
 
     @FXML
     void goAgregar(ActionEvent event) {
 
+    }
+
+    @FXML
+    void goAtras(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
+        Scene scene = new Scene(root);
+        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appStage.setScene(scene);
+        appStage.toFront();
+        appStage.show();
     }
 
     @FXML
@@ -48,19 +70,18 @@ public class ProductosController implements Initializable {
     }
 
     @FXML
+    void goGuardar(ActionEvent event) {
+
+    }
+
+    @FXML
     void goModificar(ActionEvent event) {
 
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        CodigoColumn = new TableColumn<>("Item1");
-
-        tablaProductos.getColumns().add(CodigoColumn);
-
-        tablaProductos.getItems().addAll("Data1");
-
+    @FXML
+    void seleccionarCoche(MouseEvent event) {
 
     }
+
 }

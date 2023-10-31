@@ -14,7 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class ModificarEmpleadoController {
+public class ModificarEmpleadoController{
 
     @FXML
     private Button buttonCancelar;
@@ -54,27 +54,22 @@ public class ModificarEmpleadoController {
     @FXML
     void goConfirmar(ActionEvent event) throws SQLException, IOException, ClassNotFoundException {
 
-        ModificarEmpleadoVentana(empleado);
+
     }
 
-    private Empleado empleado;
+
+    /**
 
     public void ModificarEmpleadoVentana(Empleado empleado) {
         this.empleado = empleado;
 
-        TextField nombreField = new TextField(empleado.getNombre());
-        TextField apellidoField1 = new TextField(empleado.getApellido1());
-        TextField apellidoField2 = new TextField(empleado.getApellido2());
-        TextField puestoField = new TextField(empleado.getPuesto());
-        TextField sueldoField = new TextField(Double.toString(empleado.getSueldo()));
-
 
         Button guardarButton = new Button("Guardar");
         guardarButton.setOnAction(event -> {
-            empleado.setNombre(nombreField.getText());
-            empleado.setApellido1(apellidoField1.getText());
-            empleado.setApellido2(apellidoField2.getText());
-            empleado.setPuesto(puestoField.getText());
+            empleado.setNombre(txtNombre.getText());
+            empleado.setApellido1(txtPrimerApellido.getText());
+            empleado.setApellido2(txtSegundoApellido.getText());
+
 
 
 
@@ -82,4 +77,5 @@ public class ModificarEmpleadoController {
 
 
     }
+     **/
 }
