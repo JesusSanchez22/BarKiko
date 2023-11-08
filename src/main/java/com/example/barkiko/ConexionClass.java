@@ -78,6 +78,7 @@ public class ConexionClass {
 
 
     public ResultSet cargarDatosTabla() throws SQLException {
+
         String query = "SELECT * FROM empleados";
 
         PreparedStatement sentencia = conexion.prepareStatement(query);
@@ -85,6 +86,27 @@ public class ConexionClass {
         ResultSet rs = sentencia.executeQuery(query);
 
         return rs;
+    }
+
+    public List<Producto> datosProductos() throws SQLException {
+        List<Producto> coches = new ArrayList<>();
+        String sql = "SELECT * FROM productos";
+
+        PreparedStatement sentencia = conexion.prepareStatement(sql);
+        ResultSet resultado = sentencia.executeQuery();
+        while (resultado.next()) {
+            Producto producto1 = new Producto();
+            producto1.setCodigo(resultado.getInt(1));
+            producto1.setNombre(resultado.getString(2));
+            producto1.setDescripcion(resultado.getString(3));
+            producto1.setCantidadEnStock(resultado.getInt(4));
+            producto1.setPrecioCompra(resultado.getDouble(5));
+            producto1.setPrecioVenta(resultado.getDouble(6));
+
+            coches.add(producto1);
+        }
+
+        return coches;
     }
 
 

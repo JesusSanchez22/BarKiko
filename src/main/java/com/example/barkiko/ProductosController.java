@@ -1,8 +1,10 @@
 package com.example.barkiko;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,12 +15,22 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.ResourceBundle;
 
-public class ProductosController {
+public class ProductosController implements Initializable {
 
     @FXML
     private Button buttonAgregar;
+
+    @FXML
+    private Button buttonNuevo;
+
+    @FXML
+    private Button buttonCancelar;
+
 
     @FXML
     private Button buttonAtras;
@@ -53,6 +65,11 @@ public class ProductosController {
     private ConexionClass conexionClass;
     private Producto productoSeleccionado;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
+
     private enum Accion{
         NUEVO, MODIFICAR
     }
@@ -75,10 +92,23 @@ public class ProductosController {
 
     public void cargarDatos(){
 
+        modoEdicion(false);
+
+        ListProductos.getItems().clear();
+
+        try {
+            List<Producto> productos = conexionClass.datosProductos();
+            ListProductos.setItems(FXCollections.observableList(productos));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
+
+
     @FXML
-    void goAgregar(ActionEvent event) {
+    void goCancelar(ActionEvent event) {
 
     }
 
@@ -105,11 +135,44 @@ public class ProductosController {
     @FXML
     void goModificar(ActionEvent event) {
 
+        modoEdicion(true);
+        accion = Accion.MODIFICAR;
+
+    }
+
+    @FXML
+    void goNuevo(ActionEvent event) {
+        cargarDatos();
+    }
+
+    private void cargarProducto(Producto producto) {
+        txtCodigo.setText(coche.getMatricula());
+        txtNombre.setText(coche.getMarca());
+        txtStock.setText(coche.getModelo());
+        txtVenta.setValue(coche.getTipo());
+        txtCompra.setValue(coche.getTipo());
     }
 
     @FXML
     void seleccionarProducto(MouseEvent event) {
+        productoSeleccionado = ListProductos.getSelectionModel().getSelectedItem();
+        cargarProducto(productoSeleccionado);
+    }
 
+   private void modoEdicion(boolean activar) {
+        buttonNuevo.setDisable(activar);
+        buttonGuardar.setDisable(!activar);
+        buttonModificar.setDisable(activar);
+        buttonEliminar.setDisable(activar);
+
+        txtCodigo.setEditable(activar);
+        txtNombre.setEditable(activar);
+        txtStock.setEditable(activar);
+        txtVenta.setEditable(activar);
+        txtCompra.setEditable(activar);
+
+
+        ListProductos.setDisable(activar);
     }
 
 }
