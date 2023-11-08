@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class ProductosController {
 
@@ -32,7 +33,7 @@ public class ProductosController {
     private Button buttonModificar;
 
     @FXML
-    private ListView<?> lvCoches;
+    private ListView<Producto> ListProductos;
 
     @FXML
     private TextField txtCodigo;
@@ -48,6 +49,33 @@ public class ProductosController {
 
     @FXML
     private TextField txtVenta;
+
+    private ConexionClass conexionClass;
+    private Producto productoSeleccionado;
+
+    private enum Accion{
+        NUEVO, MODIFICAR
+    }
+
+    private Accion accion;
+
+    public ProductosController(){
+        conexionClass = new ConexionClass();
+
+        try {
+            conexionClass.conectar();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void cargarDatos(){
+
+    }
 
     @FXML
     void goAgregar(ActionEvent event) {
@@ -80,7 +108,7 @@ public class ProductosController {
     }
 
     @FXML
-    void seleccionarCoche(MouseEvent event) {
+    void seleccionarProducto(MouseEvent event) {
 
     }
 

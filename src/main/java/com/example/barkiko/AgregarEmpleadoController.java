@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -24,23 +25,9 @@ public class AgregarEmpleadoController implements Initializable {
     private ConexionClass conexionClass;
 
     public AgregarEmpleadoController(){
+
         conexionClass = new ConexionClass();
 
-        try {
-            conexionClass.conectar();
-        } catch (SQLException sqle) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Error al conectar con la base de datos");
-            alert.showAndWait();
-        } catch (ClassNotFoundException cnfe) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Error al iniciar la aplicación");
-            alert.showAndWait();
-        } catch (IOException ioe) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Error al cargar la configuración");
-            alert.showAndWait();
-        }
     }
 
     String arrayCb[] = {"Cocina", "Camarero", "Barra"};
@@ -71,11 +58,11 @@ public class AgregarEmpleadoController implements Initializable {
     private Label welcomeText;
 
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         try {
-            Connection connection = conexionClass.conectar();
+            conexionClass.conectar();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {
@@ -91,19 +78,16 @@ public class AgregarEmpleadoController implements Initializable {
     @FXML
     void goAgregar(ActionEvent event) throws SQLException, IOException, ClassNotFoundException {
 
-        Connection connection = conexionClass.conectar();
 
-        String sql = "INSERT INTO empleados (nombre, apellido1, apellido2, sueldo, puesto) VALUES (?,?,?,?,?)";
+        String nombre = txtNombre.getText();
+        String primerApellido = txtPrimerApellido.getText();
+        String segundoApellido = txtSegundoApellido.getText();
+        double sueldo = Double.parseDouble(txtSueldo.getText());
+        String puesto = cbPuesto.getValue();
 
-        PreparedStatement sentencia = connection.prepareStatement(sql);
+        Empleado empleado = new Empleado(nombre, primerApellido, segundoApellido, sueldo, puesto);
 
-        sentencia.setString(1, txtNombre.getText());
-        sentencia.setString(2, txtPrimerApellido.getText());
-        sentencia.setString(3, txtSegundoApellido.getText());
-        sentencia.setString(4, txtSueldo.getText());
-        sentencia.setString(5, cbPuesto.getValue());
-
-        sentencia.executeUpdate();
+        conexionClass.agregarEmpleado(empleado);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Confirmación");

@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import javax.xml.transform.Result;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -60,27 +61,11 @@ public class EmpleadosController implements Initializable{
     @FXML
     private Label welcomeText;
 
-    private ConexionClass conexionClass;
+    private final ConexionClass conexionClass;
+
 
     public EmpleadosController() {
         conexionClass = new ConexionClass();
-
-        try {
-            conexionClass.conectar();
-        } catch (SQLException sqle) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Error al conectar con la base de datos");
-            alert.showAndWait();
-        } catch (ClassNotFoundException cnfe) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Error al iniciar la aplicación");
-            alert.showAndWait();
-        } catch (IOException ioe) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Error al cargar la configuración");
-            alert.showAndWait();
-        }
-
 
     }
 
@@ -96,33 +81,25 @@ public class EmpleadosController implements Initializable{
 
     @FXML
     void goAgregar(ActionEvent event) throws IOException {
-
         Parent root = FXMLLoader.load(getClass().getResource("agregarEmpleado.fxml"));
         Scene scene = new Scene(root);
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         appStage.setScene(scene);
         appStage.toFront();
         appStage.show();
-
     }
 
     @FXML
     void goEliminar(ActionEvent event) throws SQLException, IOException, ClassNotFoundException {
 
-        Connection connection = conexionClass.conectar();
-        String sql = "Delete from empleados where codigo = ?";
-
-        PreparedStatement sentencia = connection.prepareStatement(sql);
-
         Empleado empleadoSeleccionado = tablaEmpleados.getSelectionModel().getSelectedItem();
 
-
         if (empleadoSeleccionado != null) {
-            tablaEmpleados.setEditable(true);
-            int codEmpleado = empleadoSeleccionado.getCodigo();
 
-            sentencia.setString(1, String.valueOf(codEmpleado));
-            sentencia.executeUpdate();
+            tablaEmpleados.setEditable(true);
+
+
+            conexionClass.eliminarEmpleado(empleadoSeleccionado);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Confirmación");
@@ -183,23 +160,25 @@ public class EmpleadosController implements Initializable{
         PuestoColumn.setCellValueFactory(new PropertyValueFactory<>("puesto"));
         SueldoColumn.setCellValueFactory(new PropertyValueFactory<>("sueldo"));
 
-        cargarDatosTabla();
+        try {
+            conexionClass.conectar();
+            cargarDatosTabla();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
-
 
     private void cargarDatosTabla() {
         try {
 
-            Connection connection = conexionClass.conectar();
-
             infoEmpleados = FXCollections.observableArrayList();
 
-            String query = "SELECT * FROM empleados";
-
-            Statement statement = connection.createStatement();
-
-            ResultSet rs = statement.executeQuery(query);
+            ResultSet rs = conexionClass.cargarDatosTabla();
 
             while (rs.next()) {
                 Empleado empleado = new Empleado(
@@ -216,8 +195,6 @@ public class EmpleadosController implements Initializable{
             }
 
             rs.close();
-            statement.close();
-            connection.close();
 
             tablaEmpleados.setItems(infoEmpleados);
 
@@ -226,12 +203,11 @@ public class EmpleadosController implements Initializable{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Error al cargar los datos desde la base de datos.");
             alert.showAndWait();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
         }
     }
+
+
+
 
 }
 

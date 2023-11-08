@@ -26,7 +26,7 @@
                 <Button fx:id="buttonGuardar" layoutX="194.0" layoutY="347.0" mnemonicParsing="false" onAction="#goGuardar" text="Guardar" />
                 <Button fx:id="buttonEliminar" layoutX="172.0" layoutY="306.0" mnemonicParsing="false" onAction="#goEliminar" text="Eliminar" />
                 <Button fx:id="buttonModificar" layoutX="111.0" layoutY="347.0" mnemonicParsing="false" onAction="#goModificar" text="Modificar" />
-                <ListView fx:id="lvCoches" layoutX="295.0" layoutY="88.0" onMouseClicked="#seleccionarCoche" prefHeight="318.0" prefWidth="198.0" />
+                <ListView fx:id="ListProductos" layoutX="295.0" layoutY="88.0" onMouseClicked="#seleccionarProducto" prefHeight="318.0" prefWidth="198.0" />
                 <Button fx:id="buttonAtras" layoutX="22.0" layoutY="424.0" mnemonicParsing="false" onAction="#goAtras" prefHeight="26.0" prefWidth="58.0" text="Atrás" />
             <Label layoutX="23.0" layoutY="206.0" text="Precio de venta" />
             <Label layoutX="17.0" layoutY="239.0" text="Precio de compra" />

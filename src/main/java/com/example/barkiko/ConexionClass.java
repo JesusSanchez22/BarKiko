@@ -1,5 +1,8 @@
 package com.example.barkiko;
 
+import javafx.collections.FXCollections;
+import javafx.scene.control.Alert;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -14,7 +17,7 @@ public class ConexionClass {
 
     private Connection conexion;
 
-    public Connection conectar() throws ClassNotFoundException, SQLException, IOException {
+    public void conectar() throws ClassNotFoundException, SQLException, IOException {
         Properties properties = new Properties();
 
         String host = "127.0.0.1";
@@ -33,7 +36,9 @@ public class ConexionClass {
             name=String.valueOf(properties.get("name"));
             username=String.valueOf(properties.get("username"));
             password=String.valueOf(properties.get("password"));
-            return conexion = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + name + "?serverTimezone=UTC",
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conexion = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + name + "?serverTimezone=UTC",
                     username, password);
 
 
@@ -42,7 +47,7 @@ public class ConexionClass {
         } catch(IOException ex){
             ex.printStackTrace();
         }
-        return conexion;
+
 
     }
 
@@ -71,26 +76,18 @@ public class ConexionClass {
         sentencia.executeUpdate();
     }
 
-    public List<Empleado> obtenerEmpleados() throws SQLException {
-        List<Empleado> empleados = new ArrayList<>();
-        String sql = "SELECT * FROM empleados";
 
-        PreparedStatement sentencia = conexion.prepareStatement(sql);
-        ResultSet resultado = sentencia.executeQuery();
-        while (resultado.next()) {
-            Empleado empleado = new Empleado();
-            empleado.setCodigo(resultado.getInt(1));
-            empleado.setNombre(resultado.getString(2));
-            empleado.setApellido1(resultado.getString(3));
-            empleado.setApellido2(resultado.getString(4));
-            empleado.setSueldo(resultado.getDouble(5));
-            empleado.setPuesto(resultado.getString(6));
+    public ResultSet cargarDatosTabla() throws SQLException {
+        String query = "SELECT * FROM empleados";
 
-            empleados.add(empleado);
-        }
+        PreparedStatement sentencia = conexion.prepareStatement(query);
 
-        return empleados;
+        ResultSet rs = sentencia.executeQuery(query);
+
+        return rs;
     }
+
+
 
 
 

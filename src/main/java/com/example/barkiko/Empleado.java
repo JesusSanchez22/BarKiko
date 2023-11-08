@@ -21,6 +21,14 @@ public class Empleado {
     public Empleado() {
     }
 
+    public Empleado(String nombre, String apellido1, String apellido2, double sueldo, String puesto) {
+        this.nombre = nombre;
+        this.apellido1 = apellido1;
+        this.apellido2 = apellido2;
+        this.sueldo = sueldo;
+        this.puesto = puesto;
+    }
+
     public int getCodigo() {
         return codigo;
     }
