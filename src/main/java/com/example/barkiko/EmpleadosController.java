@@ -22,7 +22,8 @@ import java.util.ResourceBundle;
 
 public class EmpleadosController implements Initializable{
 
-    Empleado empleadoSeleccionado;
+    public static Empleado empleadoSeleccionado;
+    public static int codigoglobal;
 
     @FXML
     TableColumn<Empleado, String> NombreColumn;
@@ -124,6 +125,7 @@ public class EmpleadosController implements Initializable{
     void goModificar(ActionEvent event) throws IOException {
 
         empleadoSeleccionado = tablaEmpleados.getSelectionModel().getSelectedItem();
+        codigoglobal = empleadoSeleccionado.getCodigo();
 
         if (empleadoSeleccionado != null) {
             Parent root = FXMLLoader.load(getClass().getResource("ModificarEmpleado.fxml"));

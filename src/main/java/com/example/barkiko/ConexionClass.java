@@ -68,6 +68,23 @@ public class ConexionClass {
         sentencia.executeUpdate();
     }
 
+    public void modificarEmpleado(Empleado empleado) throws SQLException {
+
+        String sql = "UPDATE empleados SET nombre = ?, apellido1 = ?, apellido2 = ?, sueldo = ?, puesto = ? WHERE codigo = ?";
+
+        PreparedStatement sentencia = conexion.prepareStatement(sql);
+
+        sentencia.setInt(6, empleado.getCodigo());
+        sentencia.setString(1, empleado.getNombre());
+        sentencia.setString(2, empleado.getApellido1());
+        sentencia.setString(3, empleado.getApellido2());
+        sentencia.setDouble(4, empleado.getSueldo());
+        sentencia.setString(5, empleado.getPuesto());
+
+        sentencia.executeUpdate();
+
+    }
+
     public void eliminarEmpleado(Empleado empleado) throws SQLException {
         String sql = "DELETE FROM empleados WHERE codigo = ?";
 
@@ -89,28 +106,74 @@ public class ConexionClass {
     }
 
     public List<Producto> datosProductos() throws SQLException {
-        List<Producto> coches = new ArrayList<>();
+        List<Producto> productos = new ArrayList<>();
         String sql = "SELECT * FROM productos";
 
         PreparedStatement sentencia = conexion.prepareStatement(sql);
         ResultSet resultado = sentencia.executeQuery();
+
+
         while (resultado.next()) {
             Producto producto1 = new Producto();
             producto1.setCodigo(resultado.getInt(1));
             producto1.setNombre(resultado.getString(2));
-            producto1.setDescripcion(resultado.getString(3));
-            producto1.setCantidadEnStock(resultado.getInt(4));
+            producto1.setCantidadEnStock(resultado.getInt(3));
+            producto1.setPrecioVenta(resultado.getDouble(4));
             producto1.setPrecioCompra(resultado.getDouble(5));
-            producto1.setPrecioVenta(resultado.getDouble(6));
 
-            coches.add(producto1);
+
+            productos.add(producto1);
         }
 
-        return coches;
+        return productos;
     }
 
 
+    public void guardarProducto(Producto producto) throws SQLException {
+        String sql = "INSERT INTO productos (codigo,nombre,cantidadEnStock,PrecioVenta,PrecioCompra) VALUES (?, ?, ?, ?,?)";
 
+        PreparedStatement sentencia = conexion.prepareStatement(sql);
+
+        sentencia.setString(1, String.valueOf(producto.getCodigo()));
+        sentencia.setString(2, producto.getNombre());
+        sentencia.setString(3, String.valueOf(producto.getCantidadEnStock()));
+        sentencia.setString(4, String.valueOf(producto.getPrecioVenta()));
+        sentencia.setString(5, String.valueOf(producto.getPrecioCompra()));
+
+        sentencia.executeUpdate();
+    }
+
+    public void eliminarProducto(Producto producto) throws SQLException {
+
+        String sql = "DELETE FROM productos WHERE codigo = ?";
+
+        PreparedStatement sentencia = conexion.prepareStatement(sql);
+        sentencia.setInt(1, producto.getCodigo());
+        sentencia.executeUpdate();
+
+    }
+
+    public void modificarProducto(Producto productoAntiguo, Producto productoNuevo){
+
+        String sql = "UPDATE productos SET nombre = ?, cantidadEnStock = ?, PrecioVenta = ?, PrecioCompra = ? WHERE codigo = ?";
+
+        try {
+
+            PreparedStatement sentencia = conexion.prepareStatement(sql);
+
+            sentencia.setInt(5, productoNuevo.getCodigo());
+            sentencia.setString(1, productoNuevo.getNombre());
+            sentencia.setInt(2, productoNuevo.getCantidadEnStock());
+            sentencia.setDouble(3, productoNuevo.getPrecioVenta());
+            sentencia.setDouble(4, productoNuevo.getPrecioCompra());
+
+            sentencia.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
 
 }
