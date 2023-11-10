@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class ProductosController implements Initializable {
 
@@ -270,8 +271,6 @@ public class ProductosController implements Initializable {
         try {
 
             List<Producto> productos = conexionClass.datosProductos();
-
-
 
             ListProductos.setItems(FXCollections.observableList(productos));
 

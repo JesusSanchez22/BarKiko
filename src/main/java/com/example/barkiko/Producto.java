@@ -64,4 +64,10 @@ public class Producto {
     public void setPrecioCompra(double precioCompra) {
         this.precioCompra = precioCompra;
     }
+
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }
