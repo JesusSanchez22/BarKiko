@@ -67,7 +67,7 @@ public class ModificarEmpleadoController implements Initializable {
     @FXML
     void goConfirmar(ActionEvent event) throws SQLException, IOException, ClassNotFoundException {
 
-        int codigo = codigoglobal;
+        int codigo = EmpleadosController.codigoglobal;
         String nombre = txtNombre.getText();
         String apellido1 = txtPrimerApellido.getText();
         String apellido2 = txtSegundoApellido.getText();

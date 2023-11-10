@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox id="fondo" alignment="CENTER" prefHeight="464.0" prefWidth="508.0" spacing="20.0" stylesheets="@../../../recursos/css.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.barkiko.LoginController">
+<VBox id="fondo" alignment="CENTER" prefHeight="464.0" prefWidth="508.0" spacing="20.0" stylesheets="@../../../recursos/css.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.barkiko.RegisterController">
   <padding>
     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
   </padding>
@@ -33,11 +34,31 @@
                <Image url="@../../../recursos/logoBarKiko.png" />
             </image>
          </ImageView>
-         <Button fx:id="buttonEntrar1" layoutX="287.0" layoutY="315.0" mnemonicParsing="false" onAction="#goEntrar" prefHeight="54.0" prefWidth="171.0" stylesheets="@../../../recursos/css.css" text="Continuar" textAlignment="CENTER">
+         <Button fx:id="buttonContinuar" layoutX="287.0" layoutY="315.0" mnemonicParsing="false" onAction="#goContinuar" prefHeight="54.0" prefWidth="171.0" stylesheets="@../../../recursos/css.css" text="Continuar" textAlignment="CENTER">
             <font>
                <Font size="24.0" />
             </font>
          </Button>
+         <TextField fx:id="txtCorreo" layoutX="112.0" layoutY="199.0" prefHeight="45.0" prefWidth="235.0" promptText="Correo ">
+            <font>
+               <Font size="20.0" />
+            </font>
+         </TextField>
+         <TextField fx:id="txtContraseña" layoutX="112.0" layoutY="259.0" prefHeight="45.0" prefWidth="235.0" promptText="Contraseña">
+            <font>
+               <Font size="20.0" />
+            </font>
+         </TextField>
+         <TextField fx:id="txtApellido" layoutX="112.0" layoutY="144.0" prefHeight="45.0" prefWidth="235.0" promptText="Apellido">
+            <font>
+               <Font size="20.0" />
+            </font>
+         </TextField>
+         <TextField fx:id="txtNombre" layoutX="112.0" layoutY="89.0" prefHeight="45.0" prefWidth="235.0" promptText="Nombre">
+            <font>
+               <Font size="20.0" />
+            </font>
+         </TextField>
       </children>
    </AnchorPane>
 </VBox>

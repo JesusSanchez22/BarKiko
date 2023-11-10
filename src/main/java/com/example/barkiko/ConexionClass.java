@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import static com.example.barkiko.EntrarController.contraseña;
+
 
 public class ConexionClass {
 
@@ -173,6 +175,62 @@ public class ConexionClass {
             throw new RuntimeException(e);
         }
 
+    }
+
+
+    public void guardarUsuario(Usuario usuario) throws SQLException {
+
+        String sql = "Insert into usuarios values(?,?,?,SHA(?));";
+
+        PreparedStatement sentencia = conexion.prepareStatement(sql);
+
+        sentencia.setString(1, usuario.getCorreo());
+        sentencia.setString(2, usuario.getNombre());
+        sentencia.setString(3, usuario.getApellido());
+        sentencia.setString(4, usuario.getCorreo());
+
+
+        sentencia.executeUpdate();
+
+    }
+
+    public void contraseñaCorrecta(Usuario usuario) throws SQLException {
+
+        String sql = "Select contraseña from usuarios where correo = ?";
+
+        PreparedStatement sentencia = conexion.prepareStatement(sql);
+
+        sentencia.setString(1, usuario.getContraseña());
+        sentencia.setString(1, usuario.getCorreo());
+
+
+        System.out.println(sentencia.executeUpdate());
+
+    }
+
+
+    public boolean usuarioExiste() throws SQLException {
+
+        String query = "Select * from usuarios where correo = ?";
+
+        PreparedStatement sentencia = conexion.prepareStatement(query);
+
+        sentencia.setString(1, contraseña);
+
+
+        return true;
+    }
+
+
+    public ResultSet cargarDatosTabla() throws SQLException {
+
+        String query = "SELECT * FROM empleados";
+
+        PreparedStatement sentencia = conexion.prepareStatement(query);
+
+        ResultSet rs = sentencia.executeQue ry(query);
+
+        return rs;
     }
 
 
